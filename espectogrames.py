@@ -45,10 +45,8 @@ for actor in os.listdir(base_path):
                 output_dir = os.path.join("plots", etiqueta)
                 os.makedirs(output_dir, exist_ok=True)
 
-                # Normalizar volumen
                 audio = librosa.util.normalize(audio)
 
-                # Duración fija de 3 segundos
                 DURACION = 3
                 longitud_objetivo = sr * DURACION
 
@@ -57,13 +55,12 @@ for actor in os.listdir(base_path):
                 else:
                     audio = np.pad(audio, (0, longitud_objetivo - len(audio)))
 
-                # Crear espectrograma
                 plt.figure(figsize=(4, 4))
 
                 S = librosa.stft(audio, n_fft=2048, hop_length=512)
                 S_db = librosa.amplitude_to_db(abs(S), ref=np.max)
 
-                # Mostrar solo el espectrograma limpio
+
                 librosa.display.specshow(S_db, sr=sr, cmap="magma")
 
                 plt.axis("off")
